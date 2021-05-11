@@ -1,2 +1,5 @@
 /* Non-bootstrap/custom styling */
 
+.container {
+  min-height: 300px;
+}
