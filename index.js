@@ -114,3 +114,8 @@ const getWeatherData = async () => {
 showFutureDate();
 
 submitBtn.addEventListener('click', getWeatherData);
+searchInput.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    getWeatherData();
+  }
+});
