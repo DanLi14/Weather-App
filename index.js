@@ -1,6 +1,7 @@
 const searchInput = document.querySelector('.search');
 const submitBtn = document.querySelector('.submit');
 const locationText = document.querySelector('.text-muted');
+const timeText = document.querySelector('.timetext');
 const cardText1 = document.querySelector('.card-text1');
 const cardText2 = document.querySelector('.card-text2');
 const cardText3 = document.querySelector('.card-text3');
@@ -26,6 +27,16 @@ Date.prototype.addDays = function (days) {
 };
 
 let date = new Date();
+
+console.log(timeText);
+
+let time = `${date.getHours()}:${
+  date.getMinutes() < 10 ? 0 : ''
+}${date.getMinutes()}`;
+
+const showTime = () => {
+  timeText.textContent = time;
+};
 
 const showFutureDate = () => {
   card3Date = date.addDays(2);
@@ -70,6 +81,7 @@ const getWeatherData = async () => {
     const res = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&APPID=7474a10a1a947ecc6c3fb800ce3a7ae2`
     );
+    console.log(res);
     const { lon, lat } = res.data.coord;
     locationText.textContent = `in ${res.data.name}`;
     temp = Math.round(res.data.main.temp);
@@ -112,6 +124,7 @@ const getWeatherData = async () => {
 };
 
 showFutureDate();
+showTime();
 
 submitBtn.addEventListener('click', getWeatherData);
 searchInput.addEventListener('keypress', function (e) {

@@ -1,5 +1,9 @@
 /* Non-bootstrap/custom styling */
 
-.container {
+/* .container {
   min-height: 300px;
+} */
+
+.timetext {
+  padding-top: 250px;
 }
