@@ -91,17 +91,56 @@ const RandomCloudsWeatherImage = (image) => {
   }
 };
 
+const RandomRainWeatherImage = (image) => {
+  const randomValue = Math.random();
+  if (randomValue < 0.25) {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain1.jpg';
+  } else if (randomValue < 0.5) {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain2.jpg';
+  } else if (randomValue < 0.75) {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain3.jpg';
+  } else {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain4.jpg';
+  }
+};
+
+const RandomClearWeatherImage = (image) => {
+  const randomValue = Math.random();
+  if (randomValue < 0.25) {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear1.jpg';
+  } else if (randomValue < 0.5) {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear2.jpg';
+  } else if (randomValue < 0.75) {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear3.jpg';
+  } else {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear4.jpg';
+  }
+};
+
 const getWeatherData = async () => {
   try {
     const res = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&APPID=7474a10a1a947ecc6c3fb800ce3a7ae2`
     );
+    showTime();
     const { lon, lat } = res.data.coord;
     locationText.textContent = `in ${res.data.name}`;
     temp = Math.round(res.data.main.temp);
     weatherMain = res.data.weather[0]['main'];
     if (weatherMain === 'Clouds') {
       RandomCloudsWeatherImage(cardImage1);
+    } else if (weatherMain === 'Rain') {
+      RandomRainWeatherImage(cardImage1);
+    } else if (weatherMain === 'Clear') {
+      RandomClearWeatherImage(cardImage1);
     }
     weatherDescription = capitalise(res.data.weather[0]['description']);
     cardText1.textContent =
@@ -113,6 +152,10 @@ const getWeatherData = async () => {
     weatherMain2 = res2.data.daily[1].weather[0]['main'];
     if (weatherMain2 === 'Clouds') {
       RandomCloudsWeatherImage(cardImage2);
+    } else if (weatherMain2 === 'Rain') {
+      RandomRainWeatherImage(cardImage2);
+    } else if (weatherMain2 === 'Clear') {
+      RandomClearWeatherImage(cardImage2);
     }
     weatherDescription2 = capitalise(
       res2.data.daily[1].weather[0]['description']
@@ -144,7 +187,6 @@ const getWeatherData = async () => {
 };
 
 showFutureDate();
-showTime();
 
 submitBtn.addEventListener('click', getWeatherData);
 searchInput.addEventListener('keypress', function (e) {
