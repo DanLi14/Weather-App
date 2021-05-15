@@ -1,6 +1,8 @@
 const searchInput = document.querySelector('.search');
 const submitBtn = document.querySelector('.submit');
 const locationText = document.querySelector('.text-muted');
+const cardImage1 = document.querySelector('.card-img1');
+const cardImage2 = document.querySelector('.card-img2');
 const timeText = document.querySelector('.timetext');
 const cardText1 = document.querySelector('.card-text1');
 const cardText2 = document.querySelector('.card-text2');
@@ -72,7 +74,22 @@ function capitalise(str) {
   return words.join(' ');
 }
 
-const showWeatherImage = () => {};
+const RandomCloudsWeatherImage = (image) => {
+  const randomValue = Math.random();
+  if (randomValue < 0.25) {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds1.jpg';
+  } else if (randomValue < 0.5) {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds2.jpg';
+  } else if (randomValue < 0.75) {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds3.jpg';
+  } else {
+    image.src =
+      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds4.jpg';
+  }
+};
 
 const getWeatherData = async () => {
   try {
@@ -83,6 +100,9 @@ const getWeatherData = async () => {
     locationText.textContent = `in ${res.data.name}`;
     temp = Math.round(res.data.main.temp);
     weatherMain = res.data.weather[0]['main'];
+    if (weatherMain === 'Clouds') {
+      RandomCloudsWeatherImage(cardImage1);
+    }
     weatherDescription = capitalise(res.data.weather[0]['description']);
     cardText1.textContent =
       `${temp}°C` + ' | ' + `${weatherMain}` + `\r\n${weatherDescription}`;
@@ -91,6 +111,9 @@ const getWeatherData = async () => {
     );
     temp2 = Math.round(res2.data.daily[1].temp.day);
     weatherMain2 = res2.data.daily[1].weather[0]['main'];
+    if (weatherMain2 === 'Clouds') {
+      RandomCloudsWeatherImage(cardImage2);
+    }
     weatherDescription2 = capitalise(
       res2.data.daily[1].weather[0]['description']
     );
