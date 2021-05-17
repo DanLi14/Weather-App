@@ -1,3 +1,5 @@
+//DOM variables
+
 const searchInput = document.querySelector('.search');
 const submitBtn = document.querySelector('.submit');
 const locationText = document.querySelector('.text-muted');
@@ -19,8 +21,12 @@ const cardTitle6 = document.querySelector('.card-title6');
 const cardTitle7 = document.querySelector('.card-title7');
 const cardTitle8 = document.querySelector('.card-title8');
 
+//DOM styling
+
 cardText1.setAttribute('style', 'white-space: pre;');
 cardText2.setAttribute('style', 'white-space: pre;');
+
+// Logic to add date and time functionality
 
 Date.prototype.addDays = function (days) {
   let date = new Date(this.valueOf());
@@ -29,10 +35,11 @@ Date.prototype.addDays = function (days) {
 };
 
 let date = new Date();
-
 let time = `${date.getHours()}:${
   date.getMinutes() < 10 ? 0 : ''
 }${date.getMinutes()}`;
+
+//functions to show time and date
 
 const showTime = () => {
   timeText.textContent = time;
@@ -65,6 +72,8 @@ const showFutureDate = () => {
   }/${card8Date.getFullYear()}`;
 };
 
+// function to capitalise certain text outputs from API request
+
 function capitalise(str) {
   const words = [];
 
@@ -73,6 +82,8 @@ function capitalise(str) {
   }
   return words.join(' ');
 }
+
+//functions to dynmically update images based on weather
 
 const RandomCloudsWeatherImage = (image) => {
   const randomValue = Math.random();
@@ -125,11 +136,15 @@ const RandomClearWeatherImage = (image) => {
   }
 };
 
+//main async function which makes an API call to the server to get weather data.
+
 const getWeatherData = async () => {
+  //first API call
   try {
     const res = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&APPID=7474a10a1a947ecc6c3fb800ce3a7ae2`
     );
+
     showTime();
     const { lon, lat } = res.data.coord;
     locationText.textContent = `in ${res.data.name}`;
@@ -145,6 +160,8 @@ const getWeatherData = async () => {
     weatherDescription = capitalise(res.data.weather[0]['description']);
     cardText1.textContent =
       `${temp}°C` + ' | ' + `${weatherMain}` + `\r\n${weatherDescription}`;
+
+    //second API call
     const res2 = await axios.get(
       `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=hourly&appid=7474a10a1a947ecc6c3fb800ce3a7ae2`
     );
@@ -157,11 +174,25 @@ const getWeatherData = async () => {
     } else if (weatherMain2 === 'Clear') {
       RandomClearWeatherImage(cardImage2);
     }
+
+    // logic to prevent showing the same card image twice on the same page.
+    while (cardImage1.src === cardImage2.src) {
+      if (weatherMain2 === 'Clouds') {
+        RandomCloudsWeatherImage(cardImage2);
+      } else if (weatherMain2 === 'Rain') {
+        RandomRainWeatherImage(cardImage2);
+      } else if (weatherMain2 === 'Clear') {
+        RandomClearWeatherImage(cardImage2);
+      }
+    }
+
     weatherDescription2 = capitalise(
       res2.data.daily[1].weather[0]['description']
     );
     cardText2.textContent =
       `${temp2}°C` + ' | ' + `${weatherMain2}` + `\r\n${weatherDescription2}`;
+
+    //code to show weather forecast for 6 days after the day after tomorrow.
     temp3 = Math.round(res2.data.daily[2].temp.day);
     weatherMain3 = res2.data.daily[2].weather[0]['main'];
     cardText3.textContent = `${temp3}°C | ${weatherMain3}`;
@@ -181,13 +212,16 @@ const getWeatherData = async () => {
     weatherMain8 = res2.data.daily[7].weather[0]['main'];
     cardText8.textContent = `${temp8}°C | ${weatherMain8}`;
   } catch (err) {
+    // Catch error
     console.log('error:', err);
     // Need to add a user alert if city input is not recognised.
   }
 };
 
+//code which runs when page is parsed.
 showFutureDate();
 
+//Event Listerners
 submitBtn.addEventListener('click', getWeatherData);
 searchInput.addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
