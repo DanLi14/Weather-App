@@ -35,13 +35,15 @@ Date.prototype.addDays = function (days) {
 };
 
 let date = new Date();
-let time = `${date.getHours()}:${
-  date.getMinutes() < 10 ? 0 : ''
-}${date.getMinutes()}`;
+let time;
 
 //functions to show time and date
 
 const showTime = () => {
+  date = new Date();
+  time = `${date.getHours()}:${
+    date.getMinutes() < 10 ? 0 : ''
+  }${date.getMinutes()}`;
   timeText.textContent = time;
 };
 
@@ -144,7 +146,6 @@ const getWeatherData = async () => {
     const res = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&APPID=7474a10a1a947ecc6c3fb800ce3a7ae2`
     );
-
     showTime();
     const { lon, lat } = res.data.coord;
     locationText.textContent = `in ${res.data.name}`;
