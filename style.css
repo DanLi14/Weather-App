@@ -11,3 +11,29 @@
 .footer {
   padding-top: 40px;
 }
+
+/* media queries */
+
+@media (max-width: 1440px) {
+  .nav {
+    height: 525px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .nav {
+    height: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    height: 925px;
+  }
+}
+
+@media (max-width: 720px) {
+  .nav {
+    height: auto;
+  }
+}
