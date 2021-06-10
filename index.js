@@ -1,5 +1,6 @@
-//DOM variables
+require('dotenv').config();
 
+//DOM variables
 const searchInput = document.querySelector('.search');
 const submitBtn = document.querySelector('.submit');
 const locationText = document.querySelector('.text-muted');
@@ -41,37 +42,23 @@ let time;
 
 const showTime = () => {
   date = new Date();
-  time = `${date.getHours()}:${
-    date.getMinutes() < 10 ? 0 : ''
-  }${date.getMinutes()}`;
+  time = `${date.getHours()}:${date.getMinutes() < 10 ? 0 : ''}${date.getMinutes()}`;
   timeText.textContent = time;
 };
 
 const showFutureDate = () => {
   card3Date = date.addDays(2);
-  cardTitle3.textContent = `${card3Date.getDate()}/${
-    card3Date.getMonth() + 1
-  }/${card3Date.getFullYear()}`;
+  cardTitle3.textContent = `${card3Date.getDate()}/${card3Date.getMonth() + 1}/${card3Date.getFullYear()}`;
   card4Date = date.addDays(3);
-  cardTitle4.textContent = `${card4Date.getDate()}/${
-    card4Date.getMonth() + 1
-  }/${card4Date.getFullYear()}`;
+  cardTitle4.textContent = `${card4Date.getDate()}/${card4Date.getMonth() + 1}/${card4Date.getFullYear()}`;
   card5Date = date.addDays(4);
-  cardTitle5.textContent = `${card5Date.getDate()}/${
-    card5Date.getMonth() + 1
-  }/${card5Date.getFullYear()}`;
+  cardTitle5.textContent = `${card5Date.getDate()}/${card5Date.getMonth() + 1}/${card5Date.getFullYear()}`;
   card6Date = date.addDays(5);
-  cardTitle6.textContent = `${card6Date.getDate()}/${
-    card6Date.getMonth() + 1
-  }/${card6Date.getFullYear()}`;
+  cardTitle6.textContent = `${card6Date.getDate()}/${card6Date.getMonth() + 1}/${card6Date.getFullYear()}`;
   card7Date = date.addDays(6);
-  cardTitle7.textContent = `${card7Date.getDate()}/${
-    card7Date.getMonth() + 1
-  }/${card7Date.getFullYear()}`;
+  cardTitle7.textContent = `${card7Date.getDate()}/${card7Date.getMonth() + 1}/${card7Date.getFullYear()}`;
   card8Date = date.addDays(7);
-  cardTitle8.textContent = `${card8Date.getDate()}/${
-    card8Date.getMonth() + 1
-  }/${card8Date.getFullYear()}`;
+  cardTitle8.textContent = `${card8Date.getDate()}/${card8Date.getMonth() + 1}/${card8Date.getFullYear()}`;
 };
 
 // function to capitalise certain text outputs from API request
@@ -90,61 +77,51 @@ function capitalise(str) {
 const RandomCloudsWeatherImage = (image) => {
   const randomValue = Math.random();
   if (randomValue < 0.25) {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds1.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds1.jpg';
   } else if (randomValue < 0.5) {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds2.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds2.jpg';
   } else if (randomValue < 0.75) {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds3.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds3.jpg';
   } else {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds4.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds4.jpg';
   }
 };
 
 const RandomRainWeatherImage = (image) => {
   const randomValue = Math.random();
   if (randomValue < 0.25) {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain1.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain1.jpg';
   } else if (randomValue < 0.5) {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain2.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain2.jpg';
   } else if (randomValue < 0.75) {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain3.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain3.jpg';
   } else {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain4.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain4.jpg';
   }
 };
 
 const RandomClearWeatherImage = (image) => {
   const randomValue = Math.random();
   if (randomValue < 0.25) {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear1.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear1.jpg';
   } else if (randomValue < 0.5) {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear2.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear2.jpg';
   } else if (randomValue < 0.75) {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear3.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear3.jpg';
   } else {
-    image.src =
-      '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear4.jpg';
+    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear4.jpg';
   }
 };
 
 //main async function which makes an API call to the server to get weather data.
 
+const weatherKey = process.env.WEATHER_API_KEY;
+
 const getWeatherData = async () => {
   //first API call
   try {
     const res = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&APPID=7474a10a1a947ecc6c3fb800ce3a7ae2`
+      `http://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&APPID=${weatherKey}`
     );
     showTime();
     const { lon, lat } = res.data.coord;
@@ -159,8 +136,7 @@ const getWeatherData = async () => {
       RandomClearWeatherImage(cardImage1);
     }
     weatherDescription = capitalise(res.data.weather[0]['description']);
-    cardText1.textContent =
-      `${temp}°C` + ' | ' + `${weatherMain}` + `\r\n${weatherDescription}`;
+    cardText1.textContent = `${temp}°C` + ' | ' + `${weatherMain}` + `\r\n${weatherDescription}`;
 
     //second API call
     const res2 = await axios.get(
@@ -187,11 +163,8 @@ const getWeatherData = async () => {
       }
     }
 
-    weatherDescription2 = capitalise(
-      res2.data.daily[1].weather[0]['description']
-    );
-    cardText2.textContent =
-      `${temp2}°C` + ' | ' + `${weatherMain2}` + `\r\n${weatherDescription2}`;
+    weatherDescription2 = capitalise(res2.data.daily[1].weather[0]['description']);
+    cardText2.textContent = `${temp2}°C` + ' | ' + `${weatherMain2}` + `\r\n${weatherDescription2}`;
 
     //code to show weather forecast for 6 days after the day after tomorrow.
     temp3 = Math.round(res2.data.daily[2].temp.day);

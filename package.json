@@ -1,0 +1,23 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Title and People Title: Weather app People: Daniel Li(web dev)  Date: see github for latest on version control",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanLi14/Weather-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanLi14/Weather-App/issues"
+  },
+  "homepage": "https://github.com/DanLi14/Weather-App#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  }
+}
