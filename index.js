@@ -1,4 +1,6 @@
 require('dotenv').config();
+const express = require('express');
+const app = express();
 
 //DOM variables
 const searchInput = document.querySelector('.search');
@@ -201,4 +203,10 @@ searchInput.addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
     getWeatherData();
   }
+});
+
+const port = 3000;
+// process.env.PORT ||
+app.listen(port, () => {
+  console.log(`connected to port: ${port}`);
 });
