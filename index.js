@@ -1,6 +1,8 @@
-require('dotenv').config();
-const express = require('express');
-const app = express();
+// require('dotenv').config();
+// const express = require('express');
+// const app = express();
+
+// import { WEATHER_API_KEY } from './env.js';
 
 //DOM variables
 const searchInput = document.querySelector('.search');
@@ -79,51 +81,49 @@ function capitalise(str) {
 const RandomCloudsWeatherImage = (image) => {
   const randomValue = Math.random();
   if (randomValue < 0.25) {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds1.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343184/WeatherApp/Clouds1_zkbiyo.jpg';
   } else if (randomValue < 0.5) {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds2.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343184/WeatherApp/Clouds2_gfoons.jpg';
   } else if (randomValue < 0.75) {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds3.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343185/WeatherApp/Clouds3_gt2mol.jpg';
   } else {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clouds4.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343184/WeatherApp/Clouds4_ycmue4.jpg';
   }
 };
 
 const RandomRainWeatherImage = (image) => {
   const randomValue = Math.random();
   if (randomValue < 0.25) {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain1.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343185/WeatherApp/Rain1_oq0duu.jpg';
   } else if (randomValue < 0.5) {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain2.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343185/WeatherApp/Rain2_upkcct.jpg';
   } else if (randomValue < 0.75) {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain3.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343186/WeatherApp/Rain3_ahmulc.jpg';
   } else {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Rain4.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343185/WeatherApp/Rain4_wrhjea.jpg';
   }
 };
 
 const RandomClearWeatherImage = (image) => {
   const randomValue = Math.random();
   if (randomValue < 0.25) {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear1.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343185/WeatherApp/Clear1_ac3t7r.jpg';
   } else if (randomValue < 0.5) {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear2.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343184/WeatherApp/Clear2_xywu1n.jpg';
   } else if (randomValue < 0.75) {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear3.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343184/WeatherApp/Clear3_vrcud8.jpg';
   } else {
-    image.src = '/Users/danli/Documents/Web_Development/Projects/Weather-App/images/Clear4.jpg';
+    image.src = 'https://res.cloudinary.com/fabien14/image/upload/v1623343184/WeatherApp/Clear4_mlgsbe.jpg';
   }
 };
 
 //main async function which makes an API call to the server to get weather data.
 
-const weatherKey = process.env.WEATHER_API_KEY;
-
 const getWeatherData = async () => {
   //first API call
   try {
     const res = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&APPID=${weatherKey}`
+      `http://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&APPID=7474a10a1a947ecc6c3fb800ce3a7ae2`
     );
     showTime();
     const { lon, lat } = res.data.coord;
@@ -205,8 +205,8 @@ searchInput.addEventListener('keypress', function (e) {
   }
 });
 
-const port = 3000;
-// process.env.PORT ||
-app.listen(port, () => {
-  console.log(`connected to port: ${port}`);
-});
+// const port = 3000;
+// // process.env.PORT ||
+// app.listen(port, () => {
+//   console.log(`connected to port: ${port}`);
+// });
